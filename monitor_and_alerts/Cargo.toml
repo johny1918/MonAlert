@@ -1,0 +1,11 @@
+[package]
+name = "monitor_and_alerts"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+argh = "0.1.13"
+serde = { version = "1", features = ["derive"] }
+serde_yaml = "0.9.34"
+thiserror = "2.0.17"
+tracing = "0.1.44"

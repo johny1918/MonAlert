@@ -1,4 +1,3 @@
-use chrono::Duration;
 
 // Defines what services can monitor.
 enum ServiceType {
@@ -60,7 +59,7 @@ pub struct NotificationChannel {
 }
 
 // Defines reading of config file i.e. yaml file
-pub struct ConfigReader {
+pub struct Config {
     pub version: String,
     pub services: Vec<ServiceCheck>,
     pub alerts: Vec<AlertRule>,

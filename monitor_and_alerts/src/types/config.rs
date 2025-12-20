@@ -1,6 +1,9 @@
+use serde::{Deserialize, Serialize};
+
 
 // Defines what services can monitor.
-enum ServiceType {
+#[derive(Serialize, Deserialize, Debug)]
+pub enum ServiceType {
     Http,
     Tcp,
     Icmp,
@@ -8,29 +11,34 @@ enum ServiceType {
 }
 
 // Defines trigger conditions.
-enum TriggerBehavior {
+#[derive(Serialize, Deserialize, Debug)]
+pub enum TriggerBehavior {
     ConsecutiveFailures,
     ResponseTimeThreshold,
 }
 
 // Defines severity of the alert.
-enum AlertSeverity {
+#[derive(Serialize, Deserialize, Debug)]
+pub enum AlertSeverity {
     Info(String),
     Warning(String),
     Critical(String),
 }
 
 // Defines communications channels.
-enum CommunicationChannel {
+#[derive(Serialize, Deserialize, Debug)]
+pub enum CommunicationChannel {
     Slack,
     Email,
 }
 
-enum GlobalSettings {
-    LogLevel
+#[derive(Serialize, Deserialize, Debug)]
+pub struct GlobalSettings {
+    pub log_level: String,
 }
 
 // Defines what to monitor.
+#[derive(Serialize, Deserialize, Debug)]
 pub struct ServiceCheck {
     pub id: String,
     pub name: String,
@@ -42,6 +50,7 @@ pub struct ServiceCheck {
 }
 
 // Defines when to alert.
+#[derive(Serialize, Deserialize, Debug)]
 pub struct AlertRule {
     pub check_id: String,
     pub condition: TriggerBehavior,
@@ -51,6 +60,7 @@ pub struct AlertRule {
 }
 
 // Defines how to send the alerts.
+#[derive(Serialize, Deserialize, Debug)]
 pub struct NotificationChannel {
     pub id: String,
     pub channel_type: CommunicationChannel,
@@ -58,7 +68,8 @@ pub struct NotificationChannel {
     pub enabled: bool,
 }
 
-// Defines reading of config file i.e. yaml file
+// Defines reading of config file i.e. TOML file
+#[derive(Serialize, Deserialize, Debug)]
 pub struct Config {
     pub version: String,
     pub services: Vec<ServiceCheck>,

@@ -1,0 +1,60 @@
+version = "1.0"
+
+# -------------------------
+# Services to monitor
+# -------------------------
+[[services]]
+id = "1"
+name = "Service check HTTP"
+check_type = "Http"
+target = "http://127.0.0.1:8000"
+interval = 5000
+timeout = 5000
+enabled = true
+
+[[services]]
+id = "2"
+name = "Service check TCP"
+check_type = "Tcp"
+target = "127.0.0.1:3306"
+interval = 3000
+timeout = 3000
+enabled = false
+
+# -------------------------
+# Alert rules
+# -------------------------
+[[alerts]]
+check_id = "1"
+condition = "ConsecutiveFailures"
+threshold = 2
+severity = { Warning = "Service failed twice consecutively" }
+notification_channels = ["email_main", "slack_ops"]
+
+[[alerts]]
+check_id = "2"
+condition = "ResponseTimeThreshold"
+threshold = 1500
+severity = { Critical = "Response time exceeded threshold" }
+notification_channels = ["slack_ops"]
+
+# -------------------------
+# Notification channels
+# -------------------------
+[[notifications]]
+id = "email_main"
+channel_type = "Email"
+target = "admin@example.com"
+enabled = true
+
+[[notifications]]
+id = "slack_ops"
+channel_type = "Slack"
+target = "#ops-alerts"
+enabled = true
+
+# -------------------------
+# Global settings
+# -------------------------
+[global]
+log_level = "info"

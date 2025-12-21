@@ -1,6 +1,5 @@
 use serde::{Deserialize, Serialize};
 
-
 // Defines what services can monitor.
 #[derive(Serialize, Deserialize, Debug)]
 pub enum ServiceType {
@@ -56,7 +55,7 @@ pub struct AlertRule {
     pub condition: TriggerBehavior,
     pub threshold: u32,
     pub severity: AlertSeverity,
-    pub notification_channels: Vec<String> // slack, email, etc
+    pub notification_channels: Vec<String>, // slack, email, etc
 }
 
 // Defines how to send the alerts.
